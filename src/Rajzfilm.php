@@ -26,4 +26,16 @@ class Rajzfilm {
         }
         return $rajzfilmek;
     }
+    
+    public function uj()
+    {
+        global $db;
+        $stmt = $db->prepare('INSERT INTO rajzfilmek (cim, hossz, kiadasi_ev) VALUES (:cim, :hossz, :kiadasi_ev)');
+        $stmt->execute([
+            ':cim' => $this->cim,
+            ':hossz' => $this->hossz,
+            ':kiadasi_ev' => $this->kiadasi_ev,
+
+        ]);
+    }
 }
