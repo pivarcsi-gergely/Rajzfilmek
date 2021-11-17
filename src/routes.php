@@ -8,7 +8,8 @@ return function(Slim\App $app) {
     $app->get('/rajzfilmek', function(Request $request, Response $response){
         $rajzfilmek = Rajzfilm::osszes();
         $kimenet = json_encode($rajzfilmek);
-        return $response->withHeader('Content-type', 'application/json')->getBody()->write($kimenet);
+        $response->getBody()->write($kimenet);
+        return $response->withHeader('Content-type', 'application/json');
     });
 
     $app->post('/rajzfilmek',function(Request $request, Response $response){
@@ -19,9 +20,9 @@ return function(Slim\App $app) {
         $rajzfilm->uj();
 
         $kimenet = json_encode($rajzfilm);
+        $response->getBody()->write($kimenet);
         return $response
         ->withStatus(201)
-        ->withHeader('Content-type', 'application/json')
-        ->getBody()->write($kimenet);
+        ->withHeader('Content-type', 'application/json');
     });
 };
