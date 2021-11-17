@@ -2,10 +2,10 @@
 namespace Petrik\Rajzfilmek;
 
 class Rajzfilm {
-    private $id;
-    private $cim;
-    private $hossz;
-    private $kiadasi_ev;
+    public $id;
+    public $cim;
+    public $hossz;
+    public $kiadasi_ev;
 
     public function setAttributes(array $attr) {
        $this->id = $attr['id'] ?? $this->id;
