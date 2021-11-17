@@ -1,0 +1,14 @@
+Rajzfilmek:
+- cím
+- hossz (percben)
+- kiadási év
+
+
+/rajzfilmek
+	GET -> listázza az összeset
+	POST -> újat veszünk fel
+	
+/rajzfilmek/{id}
+	GET -> visszaadja az adott rajzfilm adatait
+	DELETE -> töröl egy adott rajzfilmet
+	PUT -> módosítja egy létező rajzfilm adatait
