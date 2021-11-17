@@ -7,5 +7,4 @@ return function(Slim\App $app) {
     $response->getBody()->write('Nothing here. Yet...');
     return $response;
     });
-}
-?>
+};
