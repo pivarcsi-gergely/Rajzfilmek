@@ -1,6 +1,8 @@
 <?php
 namespace Petrik\Rajzfilmek;
 
+use Exception;
+
 class Rajzfilm {
     public $id;
     public $cim;
@@ -26,6 +28,18 @@ class Rajzfilm {
         }
         return $rajzfilmek;
     }
+
+    public static function getById(int $id) : ?Rajzfilm {
+        global $db;
+        $stmt = $db->prepare('SELECT * FROM rajzfilm WHERE id = :id');
+        $stmt->execute([':id' => $id]);
+        if ($stmt->rowCount() !== 1) {
+            return null;
+        }
+        $rajzfilm = new Rajzfilm();
+        $rajzfilm->setAttributes($stmt->fetch(\PDO::FETCH_ASSOC)/* $stmt->fetchAll()[0]*/);
+        return $rajzfilm;
+    }
     
     public function uj()
     {
@@ -38,5 +52,18 @@ class Rajzfilm {
 
         ]);
         $this->id = $db->lastInsertId();
+    }
+
+    public function torles() {
+        if ($this->id === null) {
+            throw new Exception("null ID-jüt nem lehet törölni");
+        }
+
+        global $db;
+        $stmt = $db->prepare('DELETE FROM rajzfilm WHERE id = :id');
+        $stmt->execute([':id' => $this->id]);
+        if ($stmt->rowCount() !== 1) {
+            throw new Exception("Ilyen ID-jű nem volt");
+        }
     }
 }
