@@ -12,7 +12,7 @@ return function(Slim\App $app) {
         return $response->withHeader('Content-type', 'application/json');
     });
 
-    $app->post('/rajzfilmek',function(Request $request, Response $response){
+    $app->post('/rajzfilmek', function(Request $request, Response $response){
         $input = json_decode($request->getBody(), true);
         // Bemenet validáció. egy másik órán... :(
         $rajzfilm = new Rajzfilm();
@@ -28,7 +28,7 @@ return function(Slim\App $app) {
 
     $app->delete('/rajzfilmek/{id}', function(Request $request, Response $response, array $args){
         if (!is_numeric($args['id']) || $args['id'] <= 0) {
-            $ki = json_encode(['error' => 'Az ID-nak pozitív, és egész számnak kell lennie!']);
+            $ki = json_encode(['error' => 'Az ID-nak pozitív egész számnak kell lennie!']);
             $response->getBody()->write($ki);
             return $response->withHeader('Content-type', 'application/json')->withStatus(400);
         }
@@ -40,6 +40,17 @@ return function(Slim\App $app) {
         }
 
         $rajzfilm->torles();
+        return $response->withHeader('Content-type', 'application/json')->withStatus(204);
+    });
+
+    $app->put('/rajzfilmek/{id}', function(Request $request, Response $response, array $args){
+        if (!is_numeric($args['id']) || $args['id' <= 0]) {
+            $ki = json_encode(['error' => 'Az ID-nak pozitív egész számnak kell lennie!']);
+            $response->getBody()->write($ki);
+            return $response->withHeader('Content-type', 'application/json')->withStatus(400);
+        }
+        $rajzfilm = Rajzfilm::getById($args['id']);
+        $rajzfilm->modositas();
         return $response->withHeader('Content-type', 'application/json')->withStatus(204);
     });
 };

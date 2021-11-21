@@ -66,4 +66,18 @@ class Rajzfilm {
             throw new Exception("Ilyen ID-jű nem volt");
         }
     }
+
+    public function modositas() {
+        if ($this->id === null) {
+            throw new Exception("null ID-jüt nem lehet módosítani");
+        }
+
+        global $db;
+        $stmt = $db->prepare('UPDATE rajzfilm SET cim = :cim, hossz = :hossz, kiadasi_ev = :kiadasi_ev');
+        $stmt->execute([
+            ":cim" => $this->cim,
+            ":hossz" => $this->hossz,
+            ":kiadasi_ev" => $this->kiadasi_ev
+        ]);
+    }
 }
