@@ -2,7 +2,13 @@ Rajzfilmek:
 - cím
 - hossz (percben)
 - kiadási év
-CREATE TABLE rajzfilm (
+
+CREATE DATABASE IF NOT EXISTS `rajzfilmek`
+CHARACTER SET utf8
+COLLATE utf8_hungarian_ci;
+USE `rajzfilmek`;
+
+CREATE TABLE IF NOT EXISTS rajzfilm (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     cim VARCHAR(1000) NOT NULL,
     hossz INT NOT NULL,
